@@ -33,7 +33,7 @@
             app:indicatorColor="@color/material_accent_200"
             app:trackThickness="8dp"
             app:trackCornerRadius="@dimen/mtrl_progress_track_thickness"/>
-        <com.github.shadowsocks.widget.ServiceButton
+        <com.localzet.shadowsocks.widget.ServiceButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
             app:pressedTranslationZ="6dp"
             app:srcCompat="@drawable/ic_service_idle"/>
 
-        <com.github.shadowsocks.widget.StatsBar
+        <com.localzet.shadowsocks.widget.StatsBar
             android:id="@+id/stats"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
 
             </GridLayout>
 
-        </com.github.shadowsocks.widget.StatsBar>
+        </com.localzet.shadowsocks.widget.StatsBar>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

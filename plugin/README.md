@@ -24,10 +24,10 @@ This library is designed with Java interoperability in mind so theoretically you
 
 There are no arbitrary restrictions/requirements on package name, component name and content
  provider authority, but you're suggested to follow the format in this documentations. For package
- name, use `com.github.shadowsocks.plugin.$PLUGIN_ID` if it only contains a single plugin to
+ name, use `com.localzet.shadowsocks.plugin.$PLUGIN_ID` if it only contains a single plugin to
  prevent duplicated plugins. In some places hyphens are not accepted, for example package name. In
  that case, hyphens `-` should be changed into underscores `_`. For example, the package name for
- `obfs-local` would probably be `com.github.shadowsocks.plugin.obfs_local`.
+ `obfs-local` would probably be `com.localzet.shadowsocks.plugin.obfs_local`.
 
 ### Add dependency
 
@@ -35,7 +35,7 @@ First you need to add this library to your dependencies.
 This library is written mostly in Kotlin but can also work with Java-only projects:
 
 ```gradle
-implementation 'com.github.shadowsocks:plugin:$LATEST_VERSION'
+implementation 'com.localzet.shadowsocks:plugin:$LATEST_VERSION'
 ```
 
 ### Native binary configuration
@@ -84,21 +84,21 @@ Then add it to your manifest:
                   android:directBootAware="true"
                   android:authorities="$FULLY_QUALIFIED_NAME_OF_YOUR_CONTENTPROVIDER">
             <intent-filter>
-                <action android:name="com.github.shadowsocks.plugin.ACTION_NATIVE_PLUGIN"/>
+                <action android:name="com.localzet.shadowsocks.plugin.ACTION_NATIVE_PLUGIN"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="com.github.shadowsocks.plugin.ACTION_NATIVE_PLUGIN"/>
+                <action android:name="com.localzet.shadowsocks.plugin.ACTION_NATIVE_PLUGIN"/>
                 <data android:scheme="plugin"
-                      android:host="com.github.shadowsocks"
+                      android:host="com.localzet.shadowsocks"
                       android:path="/$PLUGIN_ID"/>
             </intent-filter>
-            <meta-data android:name="com.github.shadowsocks.plugin.id"
+            <meta-data android:name="com.localzet.shadowsocks.plugin.id"
                        android:value="$PLUGIN_ID"/>
             <!-- Optional: default is empty -->
-            <meta-data android:name="com.github.shadowsocks.plugin.default_config"
+            <meta-data android:name="com.localzet.shadowsocks.plugin.default_config"
                        android:value="dummy=default;plugin=options"/>
             <!-- Optional: remove to disable faster mode, read more in the documentation -->
-            <meta-data android:name="com.github.shadowsocks.plugin.executable_path"
+            <meta-data android:name="com.localzet.shadowsocks.plugin.executable_path"
                        android:value="$PATH_TO_EXECUTABLE_RELATIVE_TO_NATIVE_LIB_DIR"/>
         </provider>
         ...
@@ -126,10 +126,10 @@ This is used if found instead of a manual input dialog when user clicks "Configu
         ...
         <activity android:name=".ConfigActivity">
             <intent-filter>
-                <action android:name="com.github.shadowsocks.plugin.ACTION_CONFIGURE"/>
+                <action android:name="com.localzet.shadowsocks.plugin.ACTION_CONFIGURE"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data android:scheme="plugin"
-                      android:host="com.github.shadowsocks"
+                      android:host="com.localzet.shadowsocks"
                       android:path="/$PLUGIN_ID"/>
             </intent-filter>
         </activity>
@@ -152,10 +152,10 @@ This is started when user taps "?" in manual editor. To implement this, you need
         ...
         <activity android:name=".HelpActivity">
             <intent-filter>
-                <action android:name="com.github.shadowsocks.plugin.ACTION_HELP"/>
+                <action android:name="com.localzet.shadowsocks.plugin.ACTION_HELP"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data android:scheme="plugin"
-                      android:host="com.github.shadowsocks"
+                      android:host="com.localzet.shadowsocks"
                       android:path="/$PLUGIN_ID"/>
             </intent-filter>
         </activity>

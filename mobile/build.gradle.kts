@@ -10,8 +10,8 @@ plugins {
 setupApp()
 
 android {
-    namespace = "com.github.shadowsocks"
-    defaultConfig.applicationId = "com.github.shadowsocks"
+    namespace = "com.localzet.shadowsocks"
+    defaultConfig.applicationId = "com.localzet.shadowsocks"
 }
 
 dependencies {

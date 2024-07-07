@@ -11,7 +11,7 @@ plugins {
 setupCore()
 
 android {
-    namespace = "com.github.shadowsocks.core"
+    namespace = "com.localzet.shadowsocks.core"
 
     defaultConfig {
         consumerProguardFiles("proguard-rules.pro")

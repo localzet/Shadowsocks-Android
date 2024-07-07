@@ -7,10 +7,10 @@ Plugin should be bundled as an apk. `$PLUGIN_ID` in this documentation correspon
 
 There are no arbitrary restrictions/requirements on package name, component name and content
  provider authority, but you're suggested to follow the format in this documentations. For package
- name, use `com.github.shadowsocks.plugin.$PLUGIN_ID` if it only contains a single plugin to prevent
+ name, use `com.localzet.shadowsocks.plugin.$PLUGIN_ID` if it only contains a single plugin to prevent
  duplicated plugins. In some places hyphens are not accepted, for example package name. In that
  case, hyphens `-` should be changed into underscores `_`. For example, the package name for
- `obfs-local` would probably be `com.github.shadowsocks.plugin.obfs_local`.
+ `obfs-local` would probably be `com.localzet.shadowsocks.plugin.obfs_local`.
 
 It's advised to use this library for easier development, but you're free to start from scratch following this
  documentation.
@@ -34,21 +34,21 @@ Your user interface need not be consistent with shadowsocks-android styling - yo
 If the plugin provides a configuration activity, it will be started when user picks your plugin and
  taps configure. It:
 
-* MUST have action: `com.github.shadowsocks.plugin.ACTION_CONFIGURE`;
+* MUST have action: `com.localzet.shadowsocks.plugin.ACTION_CONFIGURE`;
 * MUST have category: `android.intent.category.DEFAULT`;
-* MUST be able to receive data URI `plugin://com.github.shadowsocks/$PLUGIN_ID`;
-* SHOULD parse string extra `com.github.shadowsocks.plugin.EXTRA_OPTIONS` (all options as a single
+* MUST be able to receive data URI `plugin://com.localzet.shadowsocks/$PLUGIN_ID`;
+* SHOULD parse string extra `com.localzet.shadowsocks.plugin.EXTRA_OPTIONS` (all options as a single
   string) and display the current options;
 * SHOULD distinguish between server settings and feature settings in some way, e.g. for
   `obfs-local`, `obfs` is a server setting and `obfs_host` is a feature setting;
 * On finish, it SHOULD return one of the following results:
   - `RESULT_OK = 0`: In this case it MUST return the data Intent with the new
-    `com.github.shadowsocks.plugin.EXTRA_OPTIONS`;
+    `com.localzet.shadowsocks.plugin.EXTRA_OPTIONS`;
   - `RESULT_CANCELED = -1`: Nothing will be changed;
   - `RESULT_FALLBACK = 1`: Fallback mode is requested and the host should display the fallback
     editor.
 
-This corresponds to `com.github.shadowsocks.plugin.ConfigurationActivity` in the plugin library.
+This corresponds to `com.localzet.shadowsocks.plugin.ConfigurationActivity` in the plugin library.
  Here's what a proper configuration activity usually should look like in `AndroidManifest.xml`:
 
 ```xml
@@ -58,10 +58,10 @@ This corresponds to `com.github.shadowsocks.plugin.ConfigurationActivity` in the
         ...
         <activity android:name=".ConfigActivity">
             <intent-filter>
-                <action android:name="com.github.shadowsocks.plugin.ACTION_CONFIGURE"/>
+                <action android:name="com.localzet.shadowsocks.plugin.ACTION_CONFIGURE"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data android:scheme="plugin"
-                      android:host="com.github.shadowsocks"
+                      android:host="com.localzet.shadowsocks"
                       android:path="/$PLUGIN_ID"/>
             </intent-filter>
         </activity>
@@ -75,23 +75,23 @@ This corresponds to `com.github.shadowsocks.plugin.ConfigurationActivity` in the
 If the plugin doesn't provide a configuration activity, it's highly recommended to provide a help
  message in the form of an Activity. It:
 
-* MUST have action: `com.github.shadowsocks.plugin.ACTION_HELP`;
+* MUST have action: `com.localzet.shadowsocks.plugin.ACTION_HELP`;
 * MUST have category: `android.intent.category.DEFAULT`;
-* MUST be able to receive data URI `plugin://com.github.shadowsocks/$PLUGIN_ID`;
-* CAN parse string extra `com.github.shadowsocks.plugin.EXTRA_OPTIONS` and display some more
+* MUST be able to receive data URI `plugin://com.localzet.shadowsocks/$PLUGIN_ID`;
+* CAN parse string extra `com.localzet.shadowsocks.plugin.EXTRA_OPTIONS` and display some more
   relevant information;
-* SHOULD parse `@NightMode` int extra `com.github.shadowsocks.plugin.EXTRA_NIGHT_MODE` and act
+* SHOULD parse `@NightMode` int extra `com.localzet.shadowsocks.plugin.EXTRA_NIGHT_MODE` and act
   accordingly;
 * SHOULD either:
   - Be invisible and return help message with CharSequence extra
-    `com.github.shadowsocks.plugin.EXTRA_HELP_MESSAGE` in the data intent with `RESULT_OK`; (in this
+    `com.localzet.shadowsocks.plugin.EXTRA_HELP_MESSAGE` in the data intent with `RESULT_OK`; (in this
     case, a simple dialog will be shown containing the message)
   - Be visible and return `RESULT_CANCELED`.
 * SHOULD distinguish between server settings and feature settings in some way, e.g. for
   `simple_obfs`, `obfs` is a server setting and `obfs_host` is a feature setting.
 
-This corresponds to `com.github.shadowsocks.plugin.HelpActivity` or
- `com.github.shadowsocks.plugin.HelpCallback` in the plugin library. Here's what a proper help
+This corresponds to `com.localzet.shadowsocks.plugin.HelpActivity` or
+ `com.localzet.shadowsocks.plugin.HelpCallback` in the plugin library. Here's what a proper help
  activity/callback usually should look like in `AndroidManifest.xml`:
 
 ```xml
@@ -101,10 +101,10 @@ This corresponds to `com.github.shadowsocks.plugin.HelpActivity` or
         ...
         <activity android:name=".HelpActivity">
             <intent-filter>
-                <action android:name="com.github.shadowsocks.plugin.ACTION_HELP"/>
+                <action android:name="com.localzet.shadowsocks.plugin.ACTION_HELP"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data android:scheme="plugin"
-                      android:host="com.github.shadowsocks"
+                      android:host="com.localzet.shadowsocks"
                       android:path="/$PLUGIN_ID"/>
             </intent-filter>
         </activity>
@@ -127,12 +127,12 @@ Every native mode plugin MUST have a content provider to provide the native exec
 
 * MUST have `android:label` and `android:icon`; (may be inherited from parent `application`)
 * SHOULD have `android:directBootAware="true"` with proper support if possible;
-* MUST have an intent filter with action `com.github.shadowsocks.plugin.ACTION_NATIVE_PLUGIN`;
+* MUST have an intent filter with action `com.localzet.shadowsocks.plugin.ACTION_NATIVE_PLUGIN`;
   (used for discovering plugins)
-* MUST have meta-data `com.github.shadowsocks.plugin.id` with string value `$PLUGIN_ID` or a string resource;
-* MUST have an intent filter with action `com.github.shadowsocks.plugin.ACTION_NATIVE_PLUGIN` and
-  data `plugin://com.github.shadowsocks/$PLUGIN_ID`; (used for configuring plugin)
-* CAN have meta-data `com.github.shadowsocks.plugin.default_config` with string value or a string resource, default is empty;
+* MUST have meta-data `com.localzet.shadowsocks.plugin.id` with string value `$PLUGIN_ID` or a string resource;
+* MUST have an intent filter with action `com.localzet.shadowsocks.plugin.ACTION_NATIVE_PLUGIN` and
+  data `plugin://com.localzet.shadowsocks/$PLUGIN_ID`; (used for configuring plugin)
+* CAN have meta-data `com.localzet.shadowsocks.plugin.default_config` with string value or a string resource, default is empty;
 * MUST implement `query` that returns the file list which MUST include `$PLUGIN_ID` when having
   these as arguments:
   - `uri = "content://$authority_of_your_provider`;
@@ -143,9 +143,9 @@ Every native mode plugin MUST have a content provider to provide the native exec
   - `sortOrder = null`;
 * MUST implement `openFile` that for files returned in `query`, `openFile` with `mode = "r"` returns
   a valid `ParcelFileDescriptor` for reading. For example, `uri` can be
-  `content://com.github.shadowsocks.plugin.kcptun/kcptun`.
+  `content://com.localzet.shadowsocks.plugin.kcptun/kcptun`.
 
-This corresponds to `com.github.shadowsocks.plugin.NativePluginProvider` in the plugin library.
+This corresponds to `com.localzet.shadowsocks.plugin.NativePluginProvider` in the plugin library.
  Here's what a proper native plugin provider usually should look like in `AndroidManifest.xml`:
 
 ```xml
@@ -159,17 +159,17 @@ This corresponds to `com.github.shadowsocks.plugin.NativePluginProvider` in the 
                   android:authorities="$FULLY_QUALIFIED_NAME_OF_YOUR_CONTENTPROVIDER"
                   tools:ignore="ExportedContentProvider">
             <intent-filter>
-                <action android:name="com.github.shadowsocks.plugin.ACTION_NATIVE_PLUGIN"/>
+                <action android:name="com.localzet.shadowsocks.plugin.ACTION_NATIVE_PLUGIN"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="com.github.shadowsocks.plugin.ACTION_NATIVE_PLUGIN"/>
+                <action android:name="com.localzet.shadowsocks.plugin.ACTION_NATIVE_PLUGIN"/>
                 <data android:scheme="plugin"
-                      android:host="com.github.shadowsocks"
+                      android:host="com.localzet.shadowsocks"
                       android:path="/$PLUGIN_ID"/>
             </intent-filter>
-            <meta-data android:name="com.github.shadowsocks.plugin.id"
+            <meta-data android:name="com.localzet.shadowsocks.plugin.id"
                        android:value="$PLUGIN_ID"/>
-            <meta-data android:name="com.github.shadowsocks.plugin.default_config"
+            <meta-data android:name="com.localzet.shadowsocks.plugin.default_config"
                        android:value="dummy=default;plugin=options"/>
         </provider>
         ...
@@ -184,8 +184,8 @@ If your plugin binary executable can run in place, you can support native mode w
  copying (this will be used if the fast routine fails) and:
 
 * MUST implement `call` that returns absolute path to the entry executable as
-  `com.github.shadowsocks.plugin.EXTRA_ENTRY` when having `method = "shadowsocks:getExecutable"`;
-  (`com.github.shadowsocks.plugin.EXTRA_OPTIONS` is provided in extras as well just in case you
+  `com.localzet.shadowsocks.plugin.EXTRA_ENTRY` when having `method = "shadowsocks:getExecutable"`;
+  (`com.localzet.shadowsocks.plugin.EXTRA_OPTIONS` is provided in extras as well just in case you
   need them)
 * SHOULD define `android:installLocation="internalOnly"` for `<manifest>` in AndroidManifest.xml;
 * SHOULD define `android:extractNativeLibs="true"` for `<application>` in AndroidManifest.xml;
@@ -196,7 +196,7 @@ If you don't plan to support this mode, you can just throw `UnsupportedOperation
 ### Native mode without binary copying and setup
 
 Additionally, if your plugin only needs to supply the path of your executable without doing any extra setup work,
- you can use an additional `meta-data` with name `com.github.shadowsocks.plugin.executable_path`
+ you can use an additional `meta-data` with name `com.localzet.shadowsocks.plugin.executable_path`
  to supply executable path to your native binary.
 This allows the host app to launch your plugin without ever launching your app.
 
@@ -239,7 +239,7 @@ Plugin app must include this in their application tag: (which should be automati
  you are using our library)
 
 ```
-<meta-data android:name="com.github.shadowsocks.plugin.version"
+<meta-data android:name="com.localzet.shadowsocks.plugin.version"
            android:value="1.0.0"/>
 ```
 
@@ -247,9 +247,9 @@ Plugin app must include this in their application tag: (which should be automati
 
 To implement plugin ID aliasing, you:
 
-* MUST define meta-data `com.github.shadowsocks.plugin.id.aliases` in your plugin content provider with `android:value="alias"`,
+* MUST define meta-data `com.localzet.shadowsocks.plugin.id.aliases` in your plugin content provider with `android:value="alias"`,
   or use `android:resources` to specify a string resource or string array resource for multiple aliases.
-* MUST be able to be matched by `com.github.shadowsocks.plugin.ACTION_NATIVE_PLUGIN` when invoked on alias.
+* MUST be able to be matched by `com.localzet.shadowsocks.plugin.ACTION_NATIVE_PLUGIN` when invoked on alias.
   To do this, you SHOULD use multiple `intent-filter` and use a different `android:path` for each alias.
   Alternatively, you MAY also use a single `intent-filter` and use `android:pathPattern` to match all your aliases at once.
   You MUST NOT use `android:pathPrefix` or allow `android:pathPattern` to match undeclared plugin ID/alias as it might create a conflict with other plugins.
@@ -264,20 +264,20 @@ For example:
         <provider>
             ...
             <intent-filter>
-                <action android:name="com.github.shadowsocks.plugin.ACTION_NATIVE_PLUGIN"/>
+                <action android:name="com.localzet.shadowsocks.plugin.ACTION_NATIVE_PLUGIN"/>
                 <data android:scheme="plugin"
-                      android:host="com.github.shadowsocks"
+                      android:host="com.localzet.shadowsocks"
                       android:path="/$PLUGIN_ID"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="com.github.shadowsocks.plugin.ACTION_NATIVE_PLUGIN"/>
+                <action android:name="com.localzet.shadowsocks.plugin.ACTION_NATIVE_PLUGIN"/>
                 <data android:scheme="plugin"
-                      android:host="com.github.shadowsocks"
+                      android:host="com.localzet.shadowsocks"
                       android:path="/$PLUGIN_ALIAS"/>
             </intent-filter>
-            <meta-data android:name="com.github.shadowsocks.plugin.id"
+            <meta-data android:name="com.localzet.shadowsocks.plugin.id"
                        android:value="$PLUGIN_ID"/>
-            <meta-data android:name="com.github.shadowsocks.plugin.aliases"
+            <meta-data android:name="com.localzet.shadowsocks.plugin.aliases"
                        android:value="$PLUGIN_ALIAS"/>
             ...
         </provider>

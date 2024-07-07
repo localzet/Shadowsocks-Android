@@ -10,9 +10,9 @@ plugins {
 setupApp()
 
 android {
-    namespace = "com.github.shadowsocks.tv"
+    namespace = "com.localzet.shadowsocks.tv"
     defaultConfig {
-        applicationId = "com.github.shadowsocks.tv"
+        applicationId = "com.localzet.shadowsocks.tv"
         buildConfigField("boolean", "FULLSCREEN", "false")
     }
     flavorDimensions.add("market")

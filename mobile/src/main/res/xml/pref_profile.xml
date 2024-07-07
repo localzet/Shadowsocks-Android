@@ -72,7 +72,7 @@
     <PreferenceCategory
             app:title="@string/plugin">
 
-        <com.github.shadowsocks.preference.PluginPreference
+        <com.localzet.shadowsocks.preference.PluginPreference
                 app:key="plugin"
                 app:persistent="false"
                 app:title="@string/plugin"
@@ -88,8 +88,8 @@
                 app:icon="@drawable/ic_maps_360"
                 app:title="@string/udp_fallback"
                 app:summary="@string/plugin_disabled">
-            <intent android:targetPackage="com.github.shadowsocks"
-                    android:targetClass="com.github.shadowsocks.UdpFallbackProfileActivity"/>
+            <intent android:targetPackage="com.localzet.shadowsocks"
+                    android:targetClass="com.localzet.shadowsocks.UdpFallbackProfileActivity"/>
         </Preference>
 
     </PreferenceCategory>

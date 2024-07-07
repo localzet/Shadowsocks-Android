@@ -8,7 +8,7 @@ plugins {
 setupCommon()
 
 android {
-    namespace = "com.github.shadowsocks.plugin"
+    namespace = "com.localzet.shadowsocks.plugin"
     lint.informational += "GradleDependency"
 }
 
