@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<resources>
+    <string name="proxy_cat">"Налаштування сервера"</string>
+    <string name="feature_cat">"Налаштування функцій"</string>
+    <string name="unsaved_changes_prompt">"Зміни не збережено. Зберегти?"</string>
+    <string name="yes">"Так"</string>
+    <string name="no">"Ні"</string>
+    <string name="apply">"Застосувати"</string>
+    <string name="file_manager_missing">"Будь ласка, встановіть менеджер файлів, наприклад, MiXplorer"</string>
+</resources>
